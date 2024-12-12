@@ -2,11 +2,11 @@
 
 **A Comprehensive Framework for Evaluating Intrusion Detection Systems in Power Grids and Beyond**
 
-This tool performs autonomous and data rich IDS assessments, specifically designed for industrial control networks and intrusion detection systems in power grids. While traditional evaluation procedures for IDS lack the complexity and consitency necessary to draw comparisons between results, GRIDSAFE and its underlying methodology strives to provide the most meaningful data possible. By mirroring every possible circumstance of the system, in which the IDS will operate in the future, we can ensure the most meaningful evaluation results, actually representing how the system will behave. For this to work, we perform an intial threat modeling specific to the power grid scenario, on which basis we make calulated decisions regarding the evaluation's cyberattack selection, and IDS integration into the network. GRIDSAFE then autonomously executes these attacks against Wattson's power grid simulation, collects all necesarry data, and represents the results concisely. 
+This tool performs autonomous and data rich IDS assessments, specifically designed for industrial control networks and intrusion detection systems in power grids. While traditional evaluation procedures for IDS lack the complexity and consistency necessary to draw comparisons between results, GRIDSAFE and its underlying methodology strives to provide the most meaningful data possible. By mirroring every possible circumstance of the system, in which the IDS will operate in the future, we can ensure the most meaningful evaluation results, actually representing how the system will behave. For this to work, we perform an initial threat modeling specific to the power grid scenario, on which basis we make calculated decisions regarding the evaluation's cyberattack selection, and IDS integration into the network. GRIDSAFE then autonomously executes these attacks against Wattson's power grid simulation, collects all necessary data, and represents the results concisely. 
 
 <img src="figures\Framework layout.png" alt="Relation Framework and Methodology" width="100%"/>
 
-GRIDSAFE is the product of my master thesis "Evaluating Intrusion Detection Systems in Power Grids: A practical Framework". The thesis discusses a precise description of a complex evaluation methodology, which lays the groudnwork for this framework, a technical descirption of the framework, as well as a dicussion of our evaluation of Omicron's StationGuard an Suricata. For more insight, please refer to the thesis: https://oleknief.com/files/academic-works/master-thesis.pdf.
+GRIDSAFE is the product of my master thesis "Evaluating Intrusion Detection Systems in Power Grids: A practical Framework". The thesis discusses a precise description of a complex evaluation methodology, which lays the groundwork for this framework, a technical description of the framework, as well as a discussion of our evaluation of Omicron's StationGuard and Suricata. For more insight, please refer to the thesis: https://oleknief.com/files/academic-works/master-thesis.pdf.
 
 <img src="figures/Methodology Framework Relation.png" alt="Relation Framework and Methodology" width="50%"/>
 
@@ -15,19 +15,19 @@ NOTE: Due to ethical considerations, we refrain from publishing the attack catal
 
 ## Installation
 
-In order to simulate power grids an their network infrastructure, we utilize the highly versatile simulation tool Wattson. For more information about how to work with this simulation, please refer to the website https://wattson.it/, which also includes installation instruction for the repository https://github.com/fkie-cad/wattson. Additionally, the tool requires the following dependencies: 
+In order to simulate power grids and their network infrastructure, we utilize the highly versatile simulation tool Wattson. For more information about how to work with this simulation, please refer to the website https://wattson.it/, which also includes installation instruction for the repository https://github.com/fkie-cad/wattson. Additionally, the tool requires the following dependencies: 
 
 ```
 termcolor, paramiko, syslog_rfc5424_parser, dateutil, matplotlib, numpy, pillow
 ```
 
-For our evaluation, we use our own developed attacks, as well as a selection of Wattson's attack library from https://gitlab.fkie.fraunhofer.de/cad-energy/wattson/wattson-attacks. However, both of these are not publically accessible due to ethical considerations.
+For our evaluation, we use our own developed attacks, as well as a selection of Wattson's attack library from https://gitlab.fkie.fraunhofer.de/cad-energy/wattson/wattson-attacks. However, both of these are not publicly accessible due to ethical considerations.
 
 ## Setup
 
-After choosing a power grid compatible with Wattson, we still need to add the IDS to the environment and define our attacks. This section details the techincal side of this procedure. The thesis details guidelines on how one should approach IDS sensor placement and configurations.
+After choosing a power grid compatible with Wattson, we still need to add the IDS to the environment and define our attacks. This section details the technical side of this procedure. The thesis details guidelines on how one should approach IDS sensor placement and configurations.
 
-The “scenarios” folder contains the power grid scenario we use for the our evaluation, as well as our adaptions to integrate an IDS (scenarios/powerowl_test/ids_extension.py). Apart from this extension, the scenario is part of Wattson and not my own work.
+The “scenarios” folder contains the power grid scenario we use for our evaluation, as well as our adaptions to integrate an IDS (scenarios/powerowl_test/ids_extension.py). Apart from this extension, the scenario is part of Wattson and not my own work.
 
 
 ### VM based IDS Integration into Wattson 
@@ -122,25 +122,25 @@ Besides the attack files, the framework will output several representations of t
 
 <img src="figures\timeview_example.png" alt="Relation Framework and Methodology" width="100%"/>
 
-The metric view visually represents all computed metrics in a single visualization. The framework also return the pprecise metric values and confusion matrix entrys in their own files. "data/example" contains an example of these representations for one framework execution.
+The metric view visually represents all computed metrics in a single visualization. The framework also return the precise metric values and confusion matrix entries in their own files. "data/example" contains an example of these representations for one framework execution.
 
 <img src="figures\metrics_example.png" alt="Relation Framework and Methodology" width="100%"/>
 
-Lasty, "data-summary/summary" is a seperate script, that can give concise summaries of multiple attacks, such as metric averages and 95% confidence intervals. 
+Lasty, "data-summary/summary" is a separate script, that can give concise summaries of multiple attacks, such as metric averages and 95% confidence intervals. 
 
 <img src="figures\example_metrics_summary.png" alt="Relation Framework and Methodology" width="100%"/>
 
-Throughout my thesis, we evaluated a total over 2500 attacks and generated over 10 GB of data. By using the summary tool, we can still showscase much of our evalaution results, which "/data-summary" contains. We differentiate between evaluation data of the StationGuard, Suricata, and our inital technical validation. 
+Throughout my thesis, we evaluated a total over 2500 attacks and generated over 10 GB of data. By using the summary tool, we can still showcase much of our evaluation results, which "/data-summary" contains. We differentiate between evaluation data of the StationGuard, Suricata, and our initial technical validation. 
 
 ## Framework Extensions
 
 The framework was built in a way, which makes it easily adaptable to other use cases. The following lists some of the ways, in which it is extendable:
 
 - **Grid scenarios**: Add your own power grid scenario, by building it with Wattson
-- **Additional IDS support**: Make any IDS of choise compatible with the framework, in order to evaluate it with GRIDSAFE 
+- **Additional IDS support**: Make any IDS of your choice compatible with the framework, in order to evaluate it with GRIDSAFE 
 - **New attacks**: Add your own attacks, based on your specific threat model
-- **New observers**: If you want to track data apart from IDS effectivness, add your own observer for new data types, such as CPU utilization
-- **New metrics**: Either add metric representing data collected by new observers, or add additional effectivness metrics to the collection
+- **New observers**: If you want to track data apart from IDS effectiveness, add your own observer for new data types, such as CPU utilization
+- **New metrics**: Either add metric representing data collected by new observers, or add additional effectiveness metrics to the collection
 - **New visualization**: If you require a different result representation, add your own! 
 
 ## Auxiliary Tools

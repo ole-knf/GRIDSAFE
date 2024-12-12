@@ -5,3 +5,4 @@ hydra.restore
 stats.log
 suricata.log
 alerts.log
+.idea
