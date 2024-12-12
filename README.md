@@ -1,30 +1,33 @@
 # GRIDSAFE - Grid Security Assessment and Framework Evaluation
 
-A Comprehensive Framework for Evaluating Intrusion Detection Systems in Power Grids and Beyond.
+**A Comprehensive Framework for Evaluating Intrusion Detection Systems in Power Grids and Beyond**
 
 This tool performs autonomous and data rich IDS assessments, specifically designed for industrial control networks and intrusion detection systems in power grids. While traditional evaluation procedures for IDS lack the complexity and consitency necessary to draw comparisons between results, GRIDSAFE and its underlying methodology strives to provide the most meaningful data possible. By mirroring every possible circumstance of the system, in which the IDS will operate in the future, we can ensure the most meaningful evaluation results, actually representing how the system will behave. For this to work, we perform an intial threat modeling specific to the power grid scenario, on which basis we make calulated decisions regarding the evaluation's cyberattack selection, and IDS integration into the network. GRIDSAFE then autonomously executes these attacks against Wattson's power grid simulation, collects all necesarry data, and represents the results concisely. 
 
-GRIDSAFE is the product of my master thesis "Evaluating Intrusion Detection Systems in Power Grids: A practical Framework". The thesis dicusses a precise description of a complex evaluation methodology, which lays the groudnwork for this framework, a technical descirption of the framework, as well as a dicussion of our Evaluation of Omicron's StationGuard an Suricata. For more insight, please refer to the thesis: https://oleknief.com/files/academic-works/master-thesis.pdf.
+<img src="figures\Framework layout.png" alt="Relation Framework and Methodology" width="100%"/>
 
-NOTE: Due to ethical considerations, we refrain from publishing the attack catalog in "/attacks". However, we provide the general attack layout and an exemplary attack, as well as our attack scenarios to provide an example how to use the framework.
+GRIDSAFE is the product of my master thesis "Evaluating Intrusion Detection Systems in Power Grids: A practical Framework". The thesis discusses a precise description of a complex evaluation methodology, which lays the groudnwork for this framework, a technical descirption of the framework, as well as a dicussion of our evaluation of Omicron's StationGuard an Suricata. For more insight, please refer to the thesis: https://oleknief.com/files/academic-works/master-thesis.pdf.
+
+<img src="figures/Methodology Framework Relation.png" alt="Relation Framework and Methodology" width="50%"/>
+
+NOTE: Due to ethical considerations, we refrain from publishing the attack catalog in "/attacks". However, we provide the general attack layout (attack.py), an exemplary attack (RTU_disconnect.py), as well as our attack scenarios (scenarios/) to provide an example how to use the framework.
 
 
 ## Installation
 
 In order to simulate power grids an their network infrastructure, we utilize the highly versatile simulation tool Wattson. For more information about how to work with this simulation, please refer to the website https://wattson.it/, which also includes installation instruction for the repository https://github.com/fkie-cad/wattson. Additionally, the tool requires the following dependencies: 
 
-´´´
+```
 termcolor, paramiko, syslog_rfc5424_parser, dateutil, matplotlib, numpy, pillow
-´´´
+```
 
 For our evaluation, we use our own developed attacks, as well as a selection of Wattson's attack library from https://gitlab.fkie.fraunhofer.de/cad-energy/wattson/wattson-attacks. However, both of these are not publically accessible due to ethical considerations.
 
-- Install New dependencies (some of them might be covered by the Wattson install): termcolor, paramiko, syslog_rfc5424_parser, dateutil, matplotlib, numpy, pillow
-- Install Attack Tools: hydra, hping3, arpspoof, Nmap, scapy. For some of theses tools, such as hydra, the framework additionally requires a wordlist to execute the password brute-force, which is not yet included in this repository.  
-
 ## Setup
 
-After choosing a power grid compatible with Wattson, we still need to add the IDS to the environment and define our attacks. This section details this procedure. The “scenarios” folder contains the power grid scenario we use for the our evaluation, as well as our adaptions to integrate an IDS (ids_extension.py). Apart from this extension, the scenario is part of Wattson and not my own work.
+After choosing a power grid compatible with Wattson, we still need to add the IDS to the environment and define our attacks. This section details the techincal side of this procedure. The thesis details guidelines on how one should approach IDS sensor placement and configurations.
+
+The “scenarios” folder contains the power grid scenario we use for the our evaluation, as well as our adaptions to integrate an IDS (scenarios/powerowl_test/ids_extension.py). Apart from this extension, the scenario is part of Wattson and not my own work.
 
 
 ### VM based IDS Integration into Wattson 
@@ -74,50 +77,73 @@ Gateway: 172.16.X.1, the router of the subnet the VM is in
 ```
 Sidenote: In order the use the same IP as the new host in wattson, the MAC Addresses most likely need to be the same, which can be set in the VM's network settings.
 
-We also provide an explicit example for integrating Omicron's StationGuard in the "StationGuard" folder. The respective scenario extension can be found under /scenarios/powerowl_test/ids_extension.py
+We also provide an explicit example for integrating Omicron's StationGuard in the "StationGuard" folder. The respective scenario extension can be found under "/scenarios/powerowl_test/ids_extension.py"
 
-### Connect IDS with Framework
+### Connect IDS and Framework
 
 The framework supports automatic parsing of IDS alerts. However, this is highly dependent on the IDS.
 
 - For IDS with SIEM integration:
-1. Modify the IP and port of the IDS in the network in phases.py
-2. Adjust the alert parsing based on the alert structure in metrics/metrics_preprocessor.py and observer/alert_observer.py
+1. Modify the IP and port of the IDS in the network in "phases.py"
+2. Adjust the alert parsing based on the alert structure in "metrics/metrics_preprocessor.py" and "observer/alert_observer.py"
 
 - For IDS generating an alert file:
 1. Ensure that the files is accessible by the framework.
-2. Adjust the alert parsing based on the alert structure in metrics/metrics_preprocessor.py
+2. Adjust the alert parsing based on the alert structure in "metrics/metrics_preprocessor.py"
+
+In bash-scripts/eval-suricata.sh, we showcase how to use file links to automatically save the respective alert file in the correct folder.
 
 
 ### Attack Selection
 
-The attack selection is not yet accessible via parameters, as there would be too many choices. To adjust the attacks the framework executes, modify the "attack_phase()" of "phases.py" and add the attacks to "attack_queue". Implemented attack can be found in "attacks/catalog", while we also offer "attacks/scenarios", which return attack chains, which we use in the thesis. The framework will iterate through the queue, executing the attack one by one. For each attack, you can adjust several parameters, such as targets, duration, and idle time of the framework after the attack ends.
+The attack selection is not yet accessible via parameters, as there would be too many choices. To adjust the attacks the framework executes, modify the "attack_phase()" of "phases.py" and add the attacks to "attack_queue". Implemented attack can be found in "attacks/catalog" (add your attack here), while we also offer "attacks/scenarios", which return the attack chains we use in the thesis. The framework will iterate through the queue, executing the attack one by one. For each attack, you can adjust several parameters, such as targets, duration, and idle time of the framework after the attack ends.
 
 
 ## Framework Parameters
 
-To start the framework, we need to adjust several parameters, each of which is explained in the framework's help page, accessible via "python3 main.py -h".
-Most parameters define, how the folder in /data should be called, which phases should be executed (attack vs evaluation), which metrics to use, and which visualizations should be uses. The IDS choice (StationGuard vs Suricata) defines the way, in which the IDS alerts are being parsed.
+To start the framework, we need to adjust several parameters, each of which is explained in the framework's help page, accessible via 
+```python
+python3 main.py -h
+```
+
+Most parameters define, how the folder in /data should be called, which phases should be executed (attack vs evaluation), which metrics to use, and which visualizations should be used. The IDS choice (StationGuard vs Suricata) defines the way, in which the IDS alerts are being parsed.
 
 ## Framework Execution
 
-TO execute the framework, use the "enable_terminal.py" to connect to a network node of the simulation, such as "python3 enable_terminal n389". Once a node is joined, the framework can be started.
+To execute the framework, use "enable_terminal.py" to connect to a network node of the simulation, such as 
+```python
+python3 enable_terminal n389
+```
+Once a node was joined, the framework can be started.
 
 ## Output
 
-Besides the attack files, the framework will output several data representations of the data, if the user activated them as part of the parameter choices. The tool can generate a time-based view, which entails the attack time windows, the attack state on the grid, the IDS alerts, and potential critical grid states. The metric view visually represents all computed metrics in a single visualization. The framework also return the pprecise metric values and confusion matrix entrys in their own files. Examples can be seen in "data/example"
+Besides the attack files, the framework will output several representations of the data, if the user activated them as part of the parameter choices. The tool can generate a time-based view, which entails the attack time windows, the attack state on the grid, the IDS alerts, and potential critical grid states. 
+
+<img src="figures\timeview_example.png" alt="Relation Framework and Methodology" width="100%"/>
+
+The metric view visually represents all computed metrics in a single visualization. The framework also return the pprecise metric values and confusion matrix entrys in their own files. "data/example" contains an example of these representations for one framework execution.
+
+<img src="figures\metrics_example.png" alt="Relation Framework and Methodology" width="100%"/>
+
+Lasty, "data-summary/summary" is a seperate script, that can give concise summaries of multiple attacks, such as metric averages and 95% confidence intervals. 
+
+<img src="figures\example_metrics_summary.png" alt="Relation Framework and Methodology" width="100%"/>
+
+Throughout my thesis, we evaluated a total over 2500 attacks and generated over 10 GB of data. By using the summary tool, we can still showscase much of our evalaution results, which "/data-summary" contains. We differentiate between evaluation data of the StationGuard, Suricata, and our inital technical validation. 
 
 ## Framework Extensions
 
-Possible extensions to the tool:
+The framework was built in a way, which makes it easily adaptable to other use cases. The following lists some of the ways, in which it is extendable:
 
-- Grid scenarios
-- New IDS support
-- New Attacks
-- New Observers for new data types
-- New Metrics 
-- New Visualization
+- **Grid scenarios**: Add your own power grid scenario, by building it with Wattson
+- **Additional IDS support**: Make any IDS of choise compatible with the framework, in order to evaluate it with GRIDSAFE 
+- **New attacks**: Add your own attacks, based on your specific threat model
+- **New observers**: If you want to track data apart from IDS effectivness, add your own observer for new data types, such as CPU utilization
+- **New metrics**: Either add metric representing data collected by new observers, or add additional effectivness metrics to the collection
+- **New visualization**: If you require a different result representation, add your own! 
 
 ## Auxiliary Tools
 
-- "data-summary/summary" can give concise summaries of multiple attacks, such as metric averages and confidence intervals
+To automate long evaluations of multiple executions for different attack chains, we developed several bash scripts, which can be found in "/bash-scripts". To use these, ensure that you adapt them to your evaluation environment! 
+
