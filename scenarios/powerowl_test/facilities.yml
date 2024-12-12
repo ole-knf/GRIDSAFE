@@ -1,0 +1,75 @@
+'165':
+  id: '165'
+  name: Office
+  readable_name: Office
+  type: Office
+'167':
+  id: '167'
+  name: Control Center
+  readable_name: Control Center
+  type: ControlCenter
+'169':
+  id: '169'
+  name: S-TSS-0
+  readable_name: TSS-0
+  type: TransformingSubstation
+'195':
+  id: '195'
+  name: S-DSS-0
+  readable_name: DSS-0
+  type: DistributionSubstation
+'207':
+  id: '207'
+  name: S-DSS-1
+  readable_name: DSS-1
+  type: DistributionSubstation
+'221':
+  id: '221'
+  name: S-DSS-2
+  readable_name: DSS-2
+  type: DistributionSubstation
+'231':
+  id: '231'
+  name: S-DSS-3
+  readable_name: DSS-3
+  type: DistributionSubstation
+'237':
+  id: '237'
+  name: S-DSS-4
+  readable_name: DSS-4
+  type: DistributionSubstation
+'261':
+  id: '261'
+  name: S-DSS-5
+  readable_name: DSS-5
+  type: DistributionSubstation
+'266':
+  id: '266'
+  name: S-DSS-6
+  readable_name: DSS-6
+  type: DistributionSubstation
+'276':
+  id: '276'
+  name: S-DSS-7
+  readable_name: DSS-7
+  type: DistributionSubstation
+'286':
+  id: '286'
+  name: S-DSS-8
+  readable_name: DSS-8
+  type: DistributionSubstation
+'298':
+  id: '298'
+  name: S-DSS-9
+  readable_name: DSS-9
+  type: DistributionSubstation
+'308':
+  id: '308'
+  name: S-DSS-10
+  readable_name: DSS-10
+  type: DistributionSubstation
+'318':
+  id: '318'
+  name: S-DSS-11
+  readable_name: DSS-11
+  type: DistributionSubstation

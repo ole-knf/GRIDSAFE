@@ -1,0 +1,1 @@
+{"accuracy": 0.13168724279835392, "precision": 0.9666666666666667, "inverse_precision": 0.014084507042253521, "recall": 0.12133891213389121, "inverse_recall": 0.75, "fallout": 0.25, "missrate": 0.8786610878661087, "detection_rate": 1.0, "f_score": 0.21561338289962825}

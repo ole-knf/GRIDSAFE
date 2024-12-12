@@ -1,0 +1,19 @@
+nodes:
+  elk:
+    id: elk
+    name: "ElkDocker"
+    type: docker-host
+    image: wattson-elk
+    interfaces:
+      - id: i1
+        ip: "auto"
+        connect_to: n391
+    requires_internet_connection: True
+    memory_limit: 8g
+    privileged: True
+    services:
+      - module: wattson.services.monitoring.wattson_elk_service
+        service-type: "custom"
+        class: WattsonElkService
+        autostart: true
+        config: {}

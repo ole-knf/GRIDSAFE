@@ -1,0 +1,10 @@
+nodes:
+  ws:
+    id: ws
+    name: "Workstation"
+    type: host
+    interfaces:
+      - id: i1
+        ip: "auto"
+        connect_to: n391
+    requires_internet_connection: True

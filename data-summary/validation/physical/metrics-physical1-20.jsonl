@@ -1,0 +1,9 @@
+{"accuracy": {"mean": 0.5233361064891847, "confidence_interval": 0.0013920681276734664}}
+{"precision": {"mean": 0.07141977372103148, "confidence_interval": 0.002988882601348185}}
+{"inv. prec.": {"mean": 0.5660066719796374, "confidence_interval": 0.000678125625997449}}
+{"recall": {"mean": 0.015287765187015422, "confidence_interval": 0.0006166657870815219}}
+{"inv. rec.": {"mean": 0.8658681134252515, "confidence_interval": 0.002249907700638228}}
+{"fallout": {"mean": 0.13413188657474853, "confidence_interval": 0.002249907700638223}}
+{"miss rate": {"mean": 0.9847122348129846, "confidence_interval": 0.0006166657870815154}}
+{"det. rate": {"mean": 1.0, "confidence_interval": 0.0}}
+{"f-score": {"mean": 0.025180495287086192, "confidence_interval": 0.0010141406624030495}}

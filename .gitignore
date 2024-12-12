@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+hydra.restore
+/wattson-artifacts
+stats.log
+suricata.log
+alerts.log

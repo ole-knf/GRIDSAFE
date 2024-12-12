@@ -1,0 +1,15 @@
+nodes:
+  ubuntu:
+    id: ubuntu
+    name: "UbuntuDocker"
+    type: docker-host
+    image: wattson-ubuntu
+    interfaces:
+      - id: i1
+        ip: "auto"
+        connect_to: n1171
+    #services:
+      #- module: false
+      #  service-type: "python"
+      #  class: false
+      #  config: {}

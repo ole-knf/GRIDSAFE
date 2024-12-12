@@ -1,0 +1,9 @@
+nodes:
+  attacker:
+    id: attacker
+    name: "Attacker Host"
+    type: host
+    interfaces:
+      - id: i1
+        ip: "auto"
+        connect_to: n846

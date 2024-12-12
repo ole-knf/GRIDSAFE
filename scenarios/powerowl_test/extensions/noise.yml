@@ -1,0 +1,16 @@
+config:
+  power-grid:
+    noise:
+      pre_sim:
+        sgen:
+          active_power: "0.05%"
+          reactive_power: "0.05%"
+        storage:
+          active_power: "0.05%"
+      post_sim: True
+      measurement: True
+    simulator_config:
+      enable_storage_processing: False
+      enable_protection_emulation: False
+      protection_trigger_delay_seconds: 60
+      protection_trigger_threshold_factor: 1.5
