@@ -6,7 +6,7 @@ This tool performs autonomous and data rich IDS assessments, specifically design
 
 <img src="figures\Framework layout.png" alt="Relation Framework and Methodology" width="100%"/>
 
-GRIDSAFE is the product of my master thesis "Evaluating Intrusion Detection Systems in Power Grids: A practical Framework". The thesis discusses a precise description of a complex evaluation methodology, which lays the groundwork for this framework, a technical description of the framework, as well as a discussion of our evaluation of Omicron's StationGuard and Suricata. For more insight, please refer to the thesis: https://oleknief.com/files/academic-works/master-thesis.pdf.
+GRIDSAFE is the product of my master thesis "Evaluating Intrusion Detection Systems in Power Grids: A practical Framework". The thesis discusses a precise description of a complex evaluation methodology, which lays the groundwork for this framework, a technical description of the framework, as well as a discussion of our evaluation of Omicron's StationGuard and Suricata. For more insight, please refer to the [thesis](https://oleknief.com/files/academic-works/master-thesis.pdf).
 
 <img src="figures/Methodology Framework Relation.png" alt="Relation Framework and Methodology" width="50%"/>
 
@@ -27,7 +27,7 @@ For our evaluation, we use our own developed attacks, as well as a selection of 
 
 After choosing a power grid compatible with Wattson, we still need to add the IDS to the environment and define our attacks. This section details the technical side of this procedure. The thesis details guidelines on how one should approach IDS sensor placement and configurations.
 
-The “scenarios” folder contains the power grid scenario we use for our evaluation, as well as our adaptions to integrate an IDS (scenarios/powerowl_test/ids_extension.py). Apart from this extension, the scenario is part of Wattson and not my own work.
+The “scenarios” folder contains the power grid scenario we use for our evaluation, as well as our adaptions to integrate IDSs (scenarios/powerowl_test/ids_extension.py). Apart from this extension, the scenario is part of Wattson and NOT my own work.
 
 
 ### VM based IDS Integration into Wattson 
